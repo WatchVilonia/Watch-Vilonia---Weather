@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather for Vilonia, AR</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #weather { font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div id="weather">Loading...</div>
+    <script>
+        const apiKey = 'AP4ag9R6szuiyxLrmSANbohdWLcChs50'; // Replace with your AccuWeather API Key
+        const locationKey = '2123393'; // Replace with your Vilonia Location Key
+        const url = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=en-us`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const temp = data[0].Temperature.Metric.Value;
+                const description = data[0].WeatherText;
+                document.getElementById('weather').innerHTML = `Temperature: ${temp}°C<br>Description: ${description}`;
+            })
+            .catch(error => {
+                document.getElementById('weather').innerHTML = 'Error retrieving weather data';
+            });
+    </script>
+</body>
+</html>
